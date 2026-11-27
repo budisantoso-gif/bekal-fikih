@@ -557,7 +557,7 @@ kaidah:[
  {st:[2],warn:true,t:'Jima\' saat haidh termasuk dosa besar.',p:'159'},
  {st:[3],t:'Darah berhenti: puasa langsung halal walau belum mandi. Keharaman lainnya tetap berlaku sampai mandi.',p:'160'}]};
 let MX=0,MXG=false;
-const REVIEW=false, APPVER='v0.29';
+const REVIEW=false, APPVER='v0.30';
 function rk(c){return REVIEW?`<span class="rk">${c}</span>`:'';}
 const RVBAR=`<div class="rvbar">DRAF ${APPVER} · untuk review asatidzah, belum untuk peserta · <a href="#beranda" onclick="setTimeout(()=>{const g=document.getElementById('rvg');g&&g.scrollIntoView()},50)">cara memberi catatan</a></div>`;
 function reviewGuideHTML(){return `<div class="card rvguide" id="rvg" style="margin-top:14px;border:2px solid #B4232A"><b style="font-size:16px">Panduan review untuk asatidzah</b>
@@ -2730,7 +2730,11 @@ function viewTentang(){return `<h1>Tentang aplikasi</h1>
  <p style="line-height:1.55">Nama panggilan dan progres hanya tersimpan di HP ini. Tidak ada akun dan tidak ada server.</p>
  <h2 style="margin-top:20px">Yang belum pasti</h2>
  <p style="line-height:1.55">Daftar butir yang sengaja tidak dijadikan soal atau masih perlu dicek ada di <a href="#tanya" onclick="window.scrollTo(0,0)">Tanyakan ke ustadz</a>.</p>`;}
-function infoCards(){return `<div class="warn"><b>Belum direview ustadz</b><p style="margin-top:6px;font-size:13.5px;line-height:1.5">Isi aplikasi ini belum diperiksa ustadz. Ikuti penjelasan ustadz di kelas bila ada yang berbeda.</p><div class="row" style="gap:8px;margin-top:10px;flex-wrap:wrap"><button class="dbtn2" onclick="go('tentang')">Tentang aplikasi</button><button class="dbtn2" onclick="go('tanya')">Tanyakan ke ustadz</button></div></div>`;}
+const FB_MAIL='ciseaoux@gmail.com';
+function fbHref(){const pg=(location.hash||'#beranda');const body='Halaman: '+pg+'\nVersi: '+APPVER+'\n\nIsi masukan (apa yang keliru atau kurang jelas, dan yang menurut Anda benar):\n';return 'mailto:'+FB_MAIL+'?subject='+encodeURIComponent('Masukan Bekal Fikih '+APPVER)+'&body='+encodeURIComponent(body);}
+window.fbCopy=function(b){try{navigator.clipboard.writeText(FB_MAIL).then(()=>{b.textContent='Tersalin';});}catch(e){}};
+function fbCard(){return `<div class="card" style="margin-top:22px;text-align:center"><b>Ada yang keliru atau kurang jelas?</b><p class="muted" style="font-size:13px;margin:4px 0 10px">Kirim masukan ke penyusun. Halaman yang sedang dibuka ikut tercatat.</p><div class="row" style="gap:8px;justify-content:center;flex-wrap:wrap"><a class="dbtn" style="text-decoration:none;display:inline-block" href="${fbHref()}">Kirim masukan</a><button class="dbtn2" onclick="fbCopy(this)">Salin email</button></div><p class="muted" style="font-size:12px;margin-top:8px;user-select:all">${FB_MAIL}</p></div>`;}
+function infoCards(){return `<div class="warn"><b>Belum direview ustadz</b><p style="margin-top:6px;font-size:13.5px;line-height:1.5">Isi aplikasi ini belum diperiksa ustadz. Ikuti penjelasan ustadz di kelas bila ada yang berbeda.</p><div class="row" style="gap:8px;margin-top:10px;flex-wrap:wrap"><button class="dbtn2" onclick="go('tentang')">Tentang aplikasi</button><button class="dbtn2" onclick="go('tanya')">Tanyakan ke ustadz</button><a class="dbtn" style="text-decoration:none;display:inline-block" href="${fbHref()}">Kirim masukan</a></div></div>`;}
 function discCheck(){if(S.disc||document.getElementById('disc'))return;const d=document.createElement('div');d.id='disc';d.innerHTML=`<div class="dbox" role="dialog" aria-modal="true" aria-labelledby="dt"><h2 id="dt" style="margin:0 0 8px">Sebelum mulai</h2><p style="line-height:1.55">${DISC_T}</p><div class="row" style="gap:8px;margin-top:14px;flex-wrap:wrap"><button class="dbtn" onclick="discOk()">Mengerti</button><button class="dbtn2" onclick="discOk('tentang')">Selengkapnya</button></div></div>`;document.body.appendChild(d);}
 window.discOk=function(to){S.disc=1;save();const d=document.getElementById('disc');if(d)d.remove();if(to)go(to);};
 function render(){const v=current();let h='';
@@ -2740,7 +2744,7 @@ function render(){const v=current();let h='';
   else if(v.startsWith('fasal-')&&DETAIL[v.slice(6)])h=viewFasal(v.slice(6));
   else if(v.startsWith('banding-')&&DETAIL[v.slice(8)]&&DETAIL[v.slice(8)].banding)h=viewBanding(v.slice(8));
   else if(v.startsWith('info-')){const p=v.slice(5).split('-');h=viewInfo(p[0],p.slice(1).join('-'));}else h=viewBeranda();
-  $('#app').innerHTML=(REVIEW?RVBAR:'')+h;
+  $('#app').innerHTML=(REVIEW?RVBAR:'')+h+(S.name?fbCard():'');
   document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('on',b.dataset.go===v||(v.startsWith('sesi')&&b.dataset.go==='beranda')||((v.startsWith('bab-')||v.startsWith('fasal-')||v.startsWith('banding-')||v.startsWith('info-'))&&b.dataset.go==='peta')));
   attachSwipe();discCheck();}
 document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>go(b.dataset.go));
