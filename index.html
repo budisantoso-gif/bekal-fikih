@@ -38,12 +38,12 @@
 }
 @media (prefers-color-scheme:dark){:root{
   --bg:#14161A;--card:#1E2127;--ink:#ECEDEF;--muted:#A0A4AB;--line:#30343B;--brand:#6EA8FF;--brand-ink:#CFE1FF;
-  --sy-bg:#412402;--sy-fg:#EF9F27;--sy-ink:#FAC775;
-  --ru-bg:#26215C;--ru-fg:#AFA9EC;--ru-ink:#CECBF6;
-  --wj-bg:#042C53;--wj-fg:#85B7EB;--wj-ink:#B5D4F4;
-  --su-bg:#173404;--su-fg:#97C459;--su-ink:#C0DD97;
+  --sy-bg:#3A3226;--sy-fg:#E0B567;--sy-ink:#F0D9A8;
+  --ru-bg:#2B2A45;--ru-fg:#B5B0E8;--ru-ink:#D6D3F2;
+  --wj-bg:#1F3347;--wj-fg:#8FBDE8;--wj-ink:#C3DDF3;
+  --su-bg:#263522;--su-fg:#A3C97D;--su-ink:#CFE3B7;
   --mk-bg:#2C2C2A;--mk-fg:#B4B2A9;--mk-ink:#D3D1C7;
-  --pb-bg:#501313;--pb-fg:#F09595;--pb-ink:#F7C1C1;
+  --pb-bg:#3A2A2C;--pb-fg:#E8A7A7;--pb-ink:#F1D3D3;
   --nt-bg:#262A31;--nt-fg:#A0A4AB;--nt-ink:#E5E7EB;
 }}
 *{box-sizing:border-box}
@@ -175,7 +175,12 @@ textarea{width:100%;font:inherit;font-size:13px;border:1px solid var(--line);bor
 #disc{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:20px}
 #disc .dbox{background:var(--card,#fff);color:var(--ink,#1F2A37);border-radius:16px;padding:20px;max-width:420px;width:100%;box-shadow:0 10px 40px rgba(0,0,0,.3);max-height:90vh;overflow:auto}
 .dbtn{background:#0F5C4A;color:#fff;border:0;border-radius:10px;padding:11px 18px;font:inherit;font-weight:600;cursor:pointer}
-.wb{padding:11px 4px;font-size:13px;white-space:nowrap;text-align:center;text-decoration:none;display:block;min-width:0}
+.wb{box-sizing:border-box;display:flex;align-items:center;justify-content:center;min-height:46px;min-width:0;padding:0 6px;font-size:12.5px;font-weight:600;line-height:1.15;letter-spacing:0;white-space:nowrap;text-align:center;text-decoration:none}
+.fbb{box-sizing:border-box;display:flex;align-items:center;justify-content:center;min-height:38px;min-width:0;padding:0 6px;font-size:12.5px;font-weight:600;line-height:1.15;white-space:nowrap;text-decoration:none;border-radius:9px}
+.ntb{min-height:32px;padding:0 10px;font-size:12px;border-radius:8px}
+.ntc{min-height:38px;padding:0 4px;font-size:12px;border-radius:9px;line-height:1.15;white-space:nowrap;min-width:0}
+.ntc.on{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}
+.ntta{width:100%;margin-top:8px;box-sizing:border-box;font:inherit;font-size:16px;line-height:1.5;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;resize:vertical}
 .dbtn2{background:transparent;color:inherit;border:1px solid var(--line,#ccc);border-radius:10px;padding:11px 16px;font:inherit;cursor:pointer}
 .warn{background:#FFF1CC;color:#4A3500;border:1px solid #E8C766;border-radius:14px;padding:14px;margin-top:14px}
 .warn .dbtn2{border-color:#C9A63F;color:#4A3500}
@@ -558,7 +563,7 @@ kaidah:[
  {st:[2],warn:true,t:'Jima\' saat haidh termasuk dosa besar.',p:'159'},
  {st:[3],t:'Darah berhenti: puasa langsung halal walau belum mandi. Keharaman lainnya tetap berlaku sampai mandi.',p:'160'}]};
 let MX=0,MXG=false;
-const REVIEW=false, APPVER='v0.34';
+const REVIEW=false, APPVER='v0.35';
 function rk(c){return REVIEW?`<span class="rk">${c}</span>`:'';}
 const RVBAR=`<div class="rvbar">DRAF ${APPVER} · untuk review asatidzah, belum untuk peserta · <a href="#beranda" onclick="setTimeout(()=>{const g=document.getElementById('rvg');g&&g.scrollIntoView()},50)">cara memberi catatan</a></div>`;
 function reviewGuideHTML(){return `<div class="card rvguide" id="rvg" style="margin-top:14px;border:2px solid #B4232A"><b style="font-size:16px">Panduan review untuk asatidzah</b>
@@ -1547,6 +1552,34 @@ function usersHTML(sapa){const o=uStore(),ids=Object.keys(o).filter(k=>k!==S.uid
  const list=ids.map(k=>`<div class="row" style="gap:8px;align-items:center;justify-content:space-between;margin-top:8px"><span><b>${esc(o[k].name)}</b></span><span class="row" style="gap:6px"><button class="dbtn" onclick="loadUser('${k}')">Masuk</button><button class="dbtn2" onclick="delUser('${k}')">Hapus</button></span></div>`).join('');
  if(sapa)return ids.length?`<div class="card" style="margin-top:14px"><b>Sudah pernah memakai di HP ini?</b><p class="muted" style="font-size:13px;margin-top:4px">Pilih namamu untuk melanjutkan progresmu.</p>${list}</div>`:'';
  return `<div class="card stack" style="margin-top:14px"><b>Pengguna</b><p class="muted" style="font-size:13px">Sedang masuk: <b>${esc(S.name||'-')}</b>. Satu HP bisa dipakai bergantian; progres tiap orang tersimpan terpisah.</p><button onclick="switchUser()">Ganti pengguna (keluar)</button>${ids.length?`<p class="muted" style="font-size:13px;margin-top:6px">Pengguna lain di HP ini:</p>${list}`:''}</div>`;}
+
+const NT_TAGS={tambahan:['Tambahan ustadz','cat-sunnah'],tanya:['Pertanyaan saya','cat-wajib'],ingat:['Pengingat','cat-syarat']};
+let NT={k:null,open:false,tag:'tambahan',id:null,draft:''};
+function ntKeyOk(v){return /^(fasal|sesi|bab)-/.test(v);}
+function ntLabel(k){if(k.startsWith('sesi-'))return 'Sesi '+k.slice(5);if(k.startsWith('fasal-')){const f=DETAIL[k.slice(6)];return f?f.judul:k;}if(k.startsWith('bab-')){const r=REGIONS.find(x=>x.id===k.slice(4));return r?'Bab '+r.name:k;}return k;}
+function ntList(k){return (S.notes&&S.notes[k])||[];}
+function ntCount(){return Object.keys(S.notes||{}).reduce((a,k)=>a+(S.notes[k]||[]).length,0);}
+function ntItem(n){const t=NT_TAGS[n.tag]||NT_TAGS.ingat;return `<div style="border-top:1px solid var(--line);padding:10px 0 2px;margin-top:10px"><div class="row" style="justify-content:space-between;gap:6px"><span class="pill ${t[1]}">${t[0]}</span><span class="row" style="gap:4px"><button class="ntb" onclick="ntEdit('${n.id}')">Ubah</button><button class="ntb" onclick="ntDel('${n.id}')">Hapus</button></span></div><p style="white-space:pre-wrap;margin-top:6px;line-height:1.55">${esc(n.txt)}</p></div>`;}
+function ntInner(){const k=NT.k,L=ntList(k);
+ let h=`<b>Catatanku</b><p class="muted" style="font-size:12px;margin-top:2px">Catatan pribadi Anda, bukan bagian isi aplikasi. Tersimpan di HP ini.</p>${L.map(ntItem).join('')}`;
+ if(NT.open){h+=`<div style="margin-top:12px"><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">${Object.keys(NT_TAGS).map(t=>`<button class="ntc ${NT.tag===t?'on':''}" onclick="ntTag('${t}')">${NT_TAGS[t][0]}</button>`).join('')}</div><textarea id="ntta" rows="4" maxlength="2000" class="ntta" placeholder="Apa yang ustadz sampaikan di sini yang belum tertulis?" oninput="NT.draft=this.value">${esc(NT.draft)}</textarea><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px"><button class="dbtn fbb" onclick="ntSave()">Simpan</button><button class="dbtn2 fbb" onclick="ntCancel()">Batal</button></div></div>`;}
+ else h+=`<button class="dbtn2 fbb" style="width:100%;margin-top:12px" onclick="ntOpen()">＋ Catatanku</button>`;
+ return h;}
+function notesBlock(k){if(NT.k!==k){NT.k=k;NT.open=false;NT.id=null;NT.draft='';}return `<div id="ntbox" class="card" style="margin-top:18px">${ntInner()}</div>`;}
+function ntRefresh(){const b=document.getElementById('ntbox');if(b)b.innerHTML=ntInner();}
+window.ntOpen=function(){NT.open=true;NT.id=null;NT.draft='';ntRefresh();setTimeout(()=>{const t=document.getElementById('ntta');if(t)t.focus();},30);};
+window.ntTag=function(t){NT.tag=t;ntRefresh();const ta=document.getElementById('ntta');if(ta){ta.focus();}};
+window.ntCancel=function(){NT.open=false;NT.id=null;NT.draft='';ntRefresh();};
+window.ntSave=function(){const txt=(NT.draft||'').trim();if(!txt)return;S.notes=S.notes||{};const L=S.notes[NT.k]=S.notes[NT.k]||[];if(NT.id){const n=L.find(x=>x.id===NT.id);if(n){n.txt=txt;n.tag=NT.tag;}}else L.push({id:'n'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),tag:NT.tag,txt:txt,ts:Date.now()});save();NT.open=false;NT.id=null;NT.draft='';ntRefresh();toast('Catatan tersimpan');};
+window.ntEdit=function(id){const n=ntList(NT.k).find(x=>x.id===id);if(!n)return;NT.open=true;NT.id=id;NT.tag=n.tag;NT.draft=n.txt;ntRefresh();setTimeout(()=>{const t=document.getElementById('ntta');if(t)t.focus();},30);};
+window.ntDel=function(id){if(!confirm('Hapus catatan ini?'))return;S.notes[NT.k]=ntList(NT.k).filter(x=>x.id!==id);if(!S.notes[NT.k].length)delete S.notes[NT.k];save();ntRefresh();};
+window.ntQuick=function(){const b=document.getElementById('ntbox');ntOpen();if(b)b.scrollIntoView({behavior:'smooth',block:'center'});};
+function ntAllText(){const ks=Object.keys(S.notes||{});return 'Catatanku - Bekal Fikih'+(S.name?' ('+S.name+')':'')+'\n\n'+ks.map(k=>ntLabel(k)+'\n'+S.notes[k].map(n=>'- ['+NT_TAGS[n.tag][0]+'] '+n.txt).join('\n')).join('\n\n');}
+window.ntCopyAll=function(b){try{navigator.clipboard.writeText(ntAllText()).then(()=>{b.textContent='Tersalin';});}catch(e){}};
+function viewCatatan(){const ks=Object.keys(S.notes||{}).filter(k=>(S.notes[k]||[]).length);
+ const body=ks.length?ks.map(k=>`<div class="card" style="margin-top:12px"><div class="row" style="justify-content:space-between;gap:8px"><b>${esc(ntLabel(k))}</b><a href="#${k}" onclick="window.scrollTo(0,0)" style="font-size:13px">Buka halaman</a></div>${S.notes[k].map(n=>{const t=NT_TAGS[n.tag]||NT_TAGS.ingat;return `<div style="border-top:1px solid var(--line);margin-top:10px;padding-top:8px"><span class="pill ${t[1]}">${t[0]}</span><p style="white-space:pre-wrap;margin-top:6px;line-height:1.55">${esc(n.txt)}</p></div>`;}).join('')}</div>`).join(''):`<div class="card" style="margin-top:14px"><p>Belum ada catatan. Buka halaman sesi atau fasal mana pun, lalu ketuk <b>＋ Catatanku</b> di bagian bawahnya.</p></div>`;
+ return `<h1>Catatanku</h1><p class="muted">${ntCount()} catatan pribadi, dikelompokkan per halaman. Ubah atau hapus dari halaman asalnya.</p>${ks.length?`<div style="display:grid;grid-template-columns:1fr;gap:6px;margin-top:10px"><button class="dbtn fbb" onclick="ntCopyAll(this)">Salin semua catatan</button></div>`:''}${body}`;}
+function ntHomeCard(){const n=ntCount();return `<div class="card" style="margin-top:12px;padding:10px 14px"><div class="row" style="justify-content:space-between;gap:8px"><span><b>Catatanku</b><span class="muted" style="font-size:12px"> · ${n?n+' catatan':'belum ada'}</span></span><button class="dbtn2 fbb" style="min-height:36px;padding:0 14px" onclick="go('catatan')">Buka</button></div></div>`;}
 function viewSapa(){return viewSapa0()+usersHTML(true);}
 function viewSapa0(){
   return `<div class="hero" style="padding-bottom:26px"><div style="position:relative"><p class="hk">Teman belajar fikih</p><h1 style="color:#fff;font-size:26px;margin:4px 0 0">Ahlan wa sahlan</h1><p class="ar" style="color:#FAC775;font-size:22px;direction:rtl;text-align:left">أَهْلًا وَسَهْلًا</p><p class="hk" style="margin-top:6px">Selamat datang di Bekal Fikih, teman belajar al-Mukhtashar al-Lathif.</p></div></div>
@@ -1564,7 +1597,7 @@ function viewBeranda(){
   if(!S.name&&!S.skipName)return viewSapa();
   const pct=totalPct();
   return `<div class="hero"><svg class="hpat" viewBox="0 0 120 120" aria-hidden="true"><defs><pattern id="st8" width="30" height="30" patternUnits="userSpaceOnUse"><g fill="none" stroke="#fff" stroke-width="1.2"><rect x="8" y="8" width="14" height="14"/><rect x="8" y="8" width="14" height="14" transform="rotate(45 15 15)"/></g></pattern></defs><rect width="120" height="120" fill="url(#st8)"/></svg><div style="position:relative"><p class="hk">${S.name?`Ahlan, <b style="color:#FAC775">${esc(S.name)}</b>`:'Teman belajar fikih'}</p><h1 style="color:#fff;font-size:26px;margin:4px 0 0">Bekal Fikih</h1><p class="ar" style="color:#FAC775;font-size:22px;direction:rtl;text-align:left">المُخْتَصَرُ اللَّطِيفُ</p><div class="hprog"><div class="row" style="justify-content:space-between"><span>Penguasaan kitab</span><b>${pct}%</b></div><div class="bar" style="background:rgba(255,255,255,.25);margin-top:6px"><i style="width:${pct}%;background:#FAC775"></i></div><p style="font-size:12px;opacity:.85;margin-top:6px">${(()=>{const np=SESSIONS.filter(x=>passed(x.n)).length,fd=SESSIONS.reduce((a,x)=>a+flashDone(x.n),0);return np||fd?`${np} dari 8 sesi lulus · ${fd} kartu dikuasai${np===8?' · MasyaAllah, tuntas!':''}`:'Warna wilayah menjadi penuh setelah kuis sesinya lulus (80% ke atas).';})()}</p></div></div></div>
-  ${REVIEW?reviewGuideHTML():infoCards()}<h2>Peta perjalanan</h2>${mapHTML()}
+  ${REVIEW?reviewGuideHTML():infoCards()+ntHomeCard()}<h2>Peta perjalanan</h2>${mapHTML()}
   <h2>8 sesi</h2><div class="stack">${SESSIONS.map(s=>`<button class="card row" style="text-align:left" onclick="go('sesi-${s.n}')"><span style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;${(()=>{const rc=(REGIONS.find(x=>x.id===s.region)||{}).color;return passed(s.n)?`background:${rc||'var(--brand)'};color:#fff`:rc?`background:color-mix(in srgb,${rc} 18%,var(--card));color:${rc};font-weight:700`:'background:var(--nt-bg)'})()}">${passed(s.n)?ico('i-check'):s.n}</span><span style="flex:1"><b style="font-size:15px">Sesi ${s.n}</b><br><span class="muted">${s.day} · ${s.title}</span></span>${S.quiz[s.n]!=null?`<span class="muted">${S.quiz[s.n]}%</span>`:''}</button>`).join('')}</div>`;
 }
 
@@ -2604,7 +2637,7 @@ function viewSetelan(){
   <h2 style="margin-top:18px">Cadangan progres</h2><p class="muted">Progres tersimpan di HP ini saja. Salin kode di bawah untuk cadangan, tempel kembali jika pindah HP atau cache terhapus.</p>
   <div class="card stack" style="margin-top:14px"><b>Kode progres Anda</b><textarea id="exp" readonly>${code}</textarea><button onclick="copyCode()">Salin kode</button><span id="cp" class="muted"></span></div>
   <div class="card stack" style="margin-top:10px"><b>Pulihkan dari kode</b><textarea id="imp" placeholder="Tempel kode progres di sini"></textarea><button onclick="importCode()">Pulihkan</button><span id="im" class="muted"></span></div>
-  <div class="card stack" style="margin-top:10px"><b>Tentang aplikasi</b><button onclick="go('tentang')">Tentang & status isi</button><button onclick="go('tanya')">Tanyakan ke ustadz</button></div>`;
+  <div class="card stack" style="margin-top:10px"><b>Tentang aplikasi</b><button onclick="go('tentang')">Tentang & status isi</button><button onclick="go('catatan')">Catatanku (${ntCount()})</button><button onclick="go('tanya')">Tanyakan ke ustadz</button></div>`;
 }
 window.copyCode=async function(){try{await navigator.clipboard.writeText($('#exp').value);$('#cp').textContent='Kode disalin';}catch(e){$('#exp').select();$('#cp').textContent='Tekan lama pada kotak lalu salin';}};
 window.importCode=function(){const v=$('#imp').value.trim();if(!v){$('#im').textContent='Tempel kodenya dulu';return;}try{const o=JSON.parse(decodeURIComponent(escape(atob(v))));S=Object.assign({quiz:{},flash:{}},o);save();$('#im').textContent='Progres dipulihkan';toast(`Progres${nm(' ')} dipulihkan. Lanjutkan belajarmu!`);}catch(e){$('#im').textContent='Kode tidak dikenali. Periksa lagi.';}};
@@ -2650,7 +2683,7 @@ function quizHTML(n){
       else m=pick([`<b>Tetap semangat${nm()}.</b> ${pct}% — buka kartu dan pohon fasalnya, lalu coba lagi.`,`<b>Jangan menyerah${nm()}.</b> Setiap pengulangan menambah paham. Ulangi setelah membaca pembahasannya.`]);
       if(newLit.length&&!all)m+=` Wilayah <b>${newLit.map(r=>r.name).join(', ')}</b> kini menyala penuh di peta.`;
       setTimeout(()=>toast(m),60);}
-    return `<div class="card stack" style="text-align:center"><p class="muted">Hasil kuis</p><span style="font-size:44px;font-weight:700">${pct}%</span><p>${pct>=80?`Lulus${nm()}. Wilayah sesi ini menyala di peta.`:`Belum 80%${nm()}. Ulangi kuisnya setelah membuka kartu dan pohon.`}</p><p class="muted" style="font-size:13px">Skor terbaikmu: ${S.quiz[n]||pct}%</p><button class="primary" onclick="QS={i:0,score:0,answered:false};render()">Ulangi kuis</button>${n<8&&pct>=80?`<button onclick="go('sesi-${n+1}')">Lanjut ke Sesi ${n+1}</button>`:''}</div>`;}
+    return `<div class="card stack" style="text-align:center"><p class="muted">Hasil kuis</p><span style="font-size:44px;font-weight:700">${pct}%</span><p>${pct>=80?`Lulus${nm()}. Wilayah sesi ini menyala di peta.`:`Belum 80%${nm()}. Ulangi kuisnya setelah membuka kartu dan pohon.`}</p><p class="muted" style="font-size:13px">Skor terbaikmu: ${S.quiz[n]||pct}%</p><p class="muted" style="font-size:13px;margin-top:6px">Ada faidah dari sesi ini? <a href="javascript:void(0)" onclick="ntQuick()">Tulis catatan sekarang</a></p><button class="primary" onclick="QS={i:0,score:0,answered:false};render()">Ulangi kuis</button>${n<8&&pct>=80?`<button onclick="go('sesi-${n+1}')">Lanjut ke Sesi ${n+1}</button>`:''}</div>`;}
   const q=qs[QS.i];
   if(q.t==='urut'){
     if(!QS.shuf){QS.shuf=q.items.map((x,i)=>i).sort(()=>Math.random()-.5);if(QS.shuf.every((v,i)=>v===i))QS.shuf.reverse();QS.pick=[];}
@@ -2746,18 +2779,18 @@ function viewTentang(){return `<h1>Tentang aplikasi</h1>
 const FB_MAIL='ciseaoux@gmail.com';
 function fbHref(){const pg=(location.hash||'#beranda');const body='Halaman: '+pg+'\nVersi: '+APPVER+'\n\nIsi masukan (apa yang keliru atau kurang jelas, dan yang menurut Anda benar):\n';return 'mailto:'+FB_MAIL+'?subject='+encodeURIComponent('Masukan Bekal Fikih '+APPVER)+'&body='+encodeURIComponent(body);}
 window.fbCopy=function(b){try{navigator.clipboard.writeText(FB_MAIL).then(()=>{b.textContent='Tersalin';});}catch(e){}};
-function fbCard(){return `<div class="card" style="margin-top:22px;text-align:center"><b>Ada yang keliru atau kurang jelas?</b><p class="muted" style="font-size:13px;margin:4px 0 10px">Kirim masukan ke penyusun. Halaman yang sedang dibuka ikut tercatat.</p><div class="row" style="gap:8px;justify-content:center;flex-wrap:wrap"><a class="dbtn" style="text-decoration:none;display:inline-block" href="${fbHref()}">Kirim masukan</a><button class="dbtn2" onclick="fbCopy(this)">Salin email</button></div><p class="muted" style="font-size:12px;margin-top:8px;user-select:all">${FB_MAIL}</p></div>`;}
+function fbCard(){return `<div class="card" style="margin-top:18px;text-align:center;padding:12px 14px"><b style="font-size:14px">Ada yang keliru atau kurang jelas?</b><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px"><a class="dbtn fbb" href="${fbHref()}">Kirim masukan</a><button class="dbtn2 fbb" onclick="fbCopy(this)">Salin email</button></div></div>`;}
 function infoCards(){return `<div class="warn"><b>Belum direview ustadz</b><p style="margin-top:6px;font-size:13.5px;line-height:1.5">Isi aplikasi ini belum diperiksa ustadz. Ikuti penjelasan ustadz di kelas bila ada yang berbeda.</p><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px"><button class="dbtn2 wb" onclick="go('tentang')">Tentang</button><button class="dbtn2 wb" onclick="go('tanya')">Tanya ustadz</button><a class="dbtn wb" href="${fbHref()}">Masukan</a></div></div>`;}
 function discCheck(){if(S.disc||document.getElementById('disc'))return;const d=document.createElement('div');d.id='disc';d.innerHTML=`<div class="dbox" role="dialog" aria-modal="true" aria-labelledby="dt"><h2 id="dt" style="margin:0 0 8px">Sebelum mulai</h2><p style="line-height:1.55">${DISC_T}</p><div class="row" style="gap:8px;margin-top:14px;flex-wrap:wrap"><button class="dbtn" onclick="discOk()">Mengerti</button><button class="dbtn2" onclick="discOk('tentang')">Selengkapnya</button></div></div>`;document.body.appendChild(d);}
 window.discOk=function(to){S.disc=1;save();const d=document.getElementById('disc');if(d)d.remove();if(to)go(to);};
 function render(){const v=current();let h='';
-  if(v==='peta')h=viewPeta();else if(v==='kunci')h=viewKunci();else if(v==='setelan')h=viewSetelan();else if(v==='tentang')h=viewTentang();else if(v==='tanya')h=viewTanya();
+  if(v==='peta')h=viewPeta();else if(v==='kunci')h=viewKunci();else if(v==='setelan')h=viewSetelan();else if(v==='tentang')h=viewTentang();else if(v==='catatan')h=viewCatatan();else if(v==='tanya')h=viewTanya();
   else if(v.startsWith('sesi-'))h=viewSesi(+v.split('-')[1]);
   else if(v.startsWith('bab-')&&TREE[v.slice(4)])h=viewBab(v.slice(4));
   else if(v.startsWith('fasal-')&&DETAIL[v.slice(6)])h=viewFasal(v.slice(6));
   else if(v.startsWith('banding-')&&DETAIL[v.slice(8)]&&DETAIL[v.slice(8)].banding)h=viewBanding(v.slice(8));
   else if(v.startsWith('info-')){const p=v.slice(5).split('-');h=viewInfo(p[0],p.slice(1).join('-'));}else h=viewBeranda();
-  $('#app').innerHTML=(REVIEW?RVBAR:'')+h+(S.name?fbCard():'');
+  $('#app').innerHTML=(REVIEW?RVBAR:'')+h+(S.name&&ntKeyOk(v)?notesBlock(v):'')+(S.name?fbCard():'');
   document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('on',b.dataset.go===v||(v.startsWith('sesi')&&b.dataset.go==='beranda')||((v.startsWith('bab-')||v.startsWith('fasal-')||v.startsWith('banding-')||v.startsWith('info-'))&&b.dataset.go==='peta')));
   attachSwipe();discCheck();}
 document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>go(b.dataset.go));
