@@ -175,6 +175,7 @@ textarea{width:100%;font:inherit;font-size:13px;border:1px solid var(--line);bor
 #disc{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:20px}
 #disc .dbox{background:var(--card,#fff);color:var(--ink,#1F2A37);border-radius:16px;padding:20px;max-width:420px;width:100%;box-shadow:0 10px 40px rgba(0,0,0,.3);max-height:90vh;overflow:auto}
 .dbtn{background:#0F5C4A;color:#fff;border:0;border-radius:10px;padding:11px 18px;font:inherit;font-weight:600;cursor:pointer}
+.wb{padding:11px 4px;font-size:13px;white-space:nowrap;text-align:center;text-decoration:none;display:block;min-width:0}
 .dbtn2{background:transparent;color:inherit;border:1px solid var(--line,#ccc);border-radius:10px;padding:11px 16px;font:inherit;cursor:pointer}
 .warn{background:#FFF1CC;color:#4A3500;border:1px solid #E8C766;border-radius:14px;padding:14px;margin-top:14px}
 .warn .dbtn2{border-color:#C9A63F;color:#4A3500}
@@ -557,7 +558,7 @@ kaidah:[
  {st:[2],warn:true,t:'Jima\' saat haidh termasuk dosa besar.',p:'159'},
  {st:[3],t:'Darah berhenti: puasa langsung halal walau belum mandi. Keharaman lainnya tetap berlaku sampai mandi.',p:'160'}]};
 let MX=0,MXG=false;
-const REVIEW=false, APPVER='v0.33';
+const REVIEW=false, APPVER='v0.34';
 function rk(c){return REVIEW?`<span class="rk">${c}</span>`:'';}
 const RVBAR=`<div class="rvbar">DRAF ${APPVER} · untuk review asatidzah, belum untuk peserta · <a href="#beranda" onclick="setTimeout(()=>{const g=document.getElementById('rvg');g&&g.scrollIntoView()},50)">cara memberi catatan</a></div>`;
 function reviewGuideHTML(){return `<div class="card rvguide" id="rvg" style="margin-top:14px;border:2px solid #B4232A"><b style="font-size:16px">Panduan review untuk asatidzah</b>
@@ -2746,7 +2747,7 @@ const FB_MAIL='ciseaoux@gmail.com';
 function fbHref(){const pg=(location.hash||'#beranda');const body='Halaman: '+pg+'\nVersi: '+APPVER+'\n\nIsi masukan (apa yang keliru atau kurang jelas, dan yang menurut Anda benar):\n';return 'mailto:'+FB_MAIL+'?subject='+encodeURIComponent('Masukan Bekal Fikih '+APPVER)+'&body='+encodeURIComponent(body);}
 window.fbCopy=function(b){try{navigator.clipboard.writeText(FB_MAIL).then(()=>{b.textContent='Tersalin';});}catch(e){}};
 function fbCard(){return `<div class="card" style="margin-top:22px;text-align:center"><b>Ada yang keliru atau kurang jelas?</b><p class="muted" style="font-size:13px;margin:4px 0 10px">Kirim masukan ke penyusun. Halaman yang sedang dibuka ikut tercatat.</p><div class="row" style="gap:8px;justify-content:center;flex-wrap:wrap"><a class="dbtn" style="text-decoration:none;display:inline-block" href="${fbHref()}">Kirim masukan</a><button class="dbtn2" onclick="fbCopy(this)">Salin email</button></div><p class="muted" style="font-size:12px;margin-top:8px;user-select:all">${FB_MAIL}</p></div>`;}
-function infoCards(){return `<div class="warn"><b>Belum direview ustadz</b><p style="margin-top:6px;font-size:13.5px;line-height:1.5">Isi aplikasi ini belum diperiksa ustadz. Ikuti penjelasan ustadz di kelas bila ada yang berbeda.</p><div class="row" style="gap:8px;margin-top:10px;flex-wrap:wrap"><button class="dbtn2" onclick="go('tentang')">Tentang aplikasi</button><button class="dbtn2" onclick="go('tanya')">Tanyakan ke ustadz</button><a class="dbtn" style="text-decoration:none;display:inline-block" href="${fbHref()}">Kirim masukan</a></div></div>`;}
+function infoCards(){return `<div class="warn"><b>Belum direview ustadz</b><p style="margin-top:6px;font-size:13.5px;line-height:1.5">Isi aplikasi ini belum diperiksa ustadz. Ikuti penjelasan ustadz di kelas bila ada yang berbeda.</p><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px"><button class="dbtn2 wb" onclick="go('tentang')">Tentang</button><button class="dbtn2 wb" onclick="go('tanya')">Tanya ustadz</button><a class="dbtn wb" href="${fbHref()}">Masukan</a></div></div>`;}
 function discCheck(){if(S.disc||document.getElementById('disc'))return;const d=document.createElement('div');d.id='disc';d.innerHTML=`<div class="dbox" role="dialog" aria-modal="true" aria-labelledby="dt"><h2 id="dt" style="margin:0 0 8px">Sebelum mulai</h2><p style="line-height:1.55">${DISC_T}</p><div class="row" style="gap:8px;margin-top:14px;flex-wrap:wrap"><button class="dbtn" onclick="discOk()">Mengerti</button><button class="dbtn2" onclick="discOk('tentang')">Selengkapnya</button></div></div>`;document.body.appendChild(d);}
 window.discOk=function(to){S.disc=1;save();const d=document.getElementById('disc');if(d)d.remove();if(to)go(to);};
 function render(){const v=current();let h='';
