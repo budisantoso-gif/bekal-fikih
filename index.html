@@ -557,7 +557,7 @@ kaidah:[
  {st:[2],warn:true,t:'Jima\' saat haidh termasuk dosa besar.',p:'159'},
  {st:[3],t:'Darah berhenti: puasa langsung halal walau belum mandi. Keharaman lainnya tetap berlaku sampai mandi.',p:'160'}]};
 let MX=0,MXG=false;
-const REVIEW=false, APPVER='v0.32';
+const REVIEW=false, APPVER='v0.33';
 function rk(c){return REVIEW?`<span class="rk">${c}</span>`:'';}
 const RVBAR=`<div class="rvbar">DRAF ${APPVER} · untuk review asatidzah, belum untuk peserta · <a href="#beranda" onclick="setTimeout(()=>{const g=document.getElementById('rvg');g&&g.scrollIntoView()},50)">cara memberi catatan</a></div>`;
 function reviewGuideHTML(){return `<div class="card rvguide" id="rvg" style="margin-top:14px;border:2px solid #B4232A"><b style="font-size:16px">Panduan review untuk asatidzah</b>
@@ -1514,7 +1514,7 @@ const FLASH={1:FLASH1,2:FLASH2,3:FLASH3,4:FLASH4,5:FLASH5,6:FLASH6,7:FLASH7,8:FL
 const TWINS=TWINS_ALL;
 
 let S={quiz:{},flash:{}};
-const KEY='bekal-fikih-mian-v1';
+const KEY='bekal-fikih-v1', UK='bekal-fikih-users-v1';
 try{const raw=localStorage.getItem(KEY);if(raw)S=Object.assign(S,JSON.parse(raw));}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
 
@@ -1535,7 +1535,19 @@ function mapHTML(){
   return `<div class="map">${REGIONS.map(r=>{const lit=regionLit(r.id);const ns=SESSIONS.filter(s=>s.regions.includes(r.id)),np=ns.filter(s=>passed(s.n)).length;const st=lit?'Lulus ✓':ns.length?`${np}/${ns.length} sesi lulus`:'Belum dimulai';return `<button class="region ${lit?'lit':''}" style="--rc:${r.color};grid-column:span ${r.span[0]};grid-row:span ${r.span[1]}" onclick="openRegion('${r.id}')"><span class="wm ar" style="font-size:${r.span[1]>1?92:54}px">${r.ar}</span><span class="ar rar">${r.ar}</span><span class="rft"><b style="font-size:14px">${r.name}</b><small>${countF(r.id)} bahasan</small><small>${st}</small></span></button>`}).join('')}</div>`;
 }
 
-function viewSapa(){
+
+function uStore(){try{return JSON.parse(localStorage.getItem(UK)||'{}')||{};}catch(e){return {};}}
+function uPut(o){try{localStorage.setItem(UK,JSON.stringify(o));}catch(e){}}
+function stashUser(){if(!S.name)return;if(!S.uid)S.uid='u'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);const o=uStore();o[S.uid]=JSON.parse(JSON.stringify(S));uPut(o);save();}
+window.switchUser=function(){stashUser();const disc=S.disc;S={quiz:{},flash:{}};if(disc)S.disc=disc;save();window.scrollTo(0,0);go('beranda');render();};
+window.loadUser=function(id){stashUser();const d=uStore()[id];if(!d)return;S=Object.assign({quiz:{},flash:{}},d);save();window.scrollTo(0,0);go('beranda');render();};
+window.delUser=function(id){const u=uStore()[id];if(!u||!confirm('Hapus pengguna "'+u.name+'" beserta progresnya dari HP ini?'))return;const o=uStore();delete o[id];uPut(o);render();};
+function usersHTML(sapa){const o=uStore(),ids=Object.keys(o).filter(k=>k!==S.uid);
+ const list=ids.map(k=>`<div class="row" style="gap:8px;align-items:center;justify-content:space-between;margin-top:8px"><span><b>${esc(o[k].name)}</b></span><span class="row" style="gap:6px"><button class="dbtn" onclick="loadUser('${k}')">Masuk</button><button class="dbtn2" onclick="delUser('${k}')">Hapus</button></span></div>`).join('');
+ if(sapa)return ids.length?`<div class="card" style="margin-top:14px"><b>Sudah pernah memakai di HP ini?</b><p class="muted" style="font-size:13px;margin-top:4px">Pilih namamu untuk melanjutkan progresmu.</p>${list}</div>`:'';
+ return `<div class="card stack" style="margin-top:14px"><b>Pengguna</b><p class="muted" style="font-size:13px">Sedang masuk: <b>${esc(S.name||'-')}</b>. Satu HP bisa dipakai bergantian; progres tiap orang tersimpan terpisah.</p><button onclick="switchUser()">Ganti pengguna (keluar)</button>${ids.length?`<p class="muted" style="font-size:13px;margin-top:6px">Pengguna lain di HP ini:</p>${list}`:''}</div>`;}
+function viewSapa(){return viewSapa0()+usersHTML(true);}
+function viewSapa0(){
   return `<div class="hero" style="padding-bottom:26px"><div style="position:relative"><p class="hk">Teman belajar fikih</p><h1 style="color:#fff;font-size:26px;margin:4px 0 0">Ahlan wa sahlan</h1><p class="ar" style="color:#FAC775;font-size:22px;direction:rtl;text-align:left">أَهْلًا وَسَهْلًا</p><p class="hk" style="margin-top:6px">Selamat datang di Bekal Fikih, teman belajar al-Mukhtashar al-Lathif.</p></div></div>
   <div class="card sapa" style="margin-top:14px"><b style="font-size:17px">Siapa nama panggilanmu?</b><p class="muted" style="margin-top:4px">Dipakai untuk menyapa dan menyemangatimu. Nama dan progres hanya tersimpan di HP ini, tidak dikirim ke mana pun.</p>
   <input id="nmin" maxlength="30" autocomplete="nickname" placeholder="mis. Ahmad, Fatimah" onkeydown="if(event.key==='Enter')saveName()">
@@ -2586,7 +2598,7 @@ function viewKunci(){
 
 function viewSetelan(){
   let code='';try{code=btoa(unescape(encodeURIComponent(JSON.stringify(S))));}catch(e){}
-  return `<h1>Profil & cadangan</h1>
+  return `<h1>Profil & cadangan</h1>${usersHTML(false)}
   <div class="card sapa" style="margin-top:14px"><b>Nama panggilan</b><input id="nmin" maxlength="30" value="${esc(S.name||'')}" placeholder="Tulis namamu" onkeydown="if(event.key==='Enter')saveName()"><p id="nmerr" style="font-size:13px;color:var(--pb-fg);margin-top:6px"></p><button onclick="saveName()">Simpan nama</button><span id="nmok" class="muted"></span></div>
   <h2 style="margin-top:18px">Cadangan progres</h2><p class="muted">Progres tersimpan di HP ini saja. Salin kode di bawah untuk cadangan, tempel kembali jika pindah HP atau cache terhapus.</p>
   <div class="card stack" style="margin-top:14px"><b>Kode progres Anda</b><textarea id="exp" readonly>${code}</textarea><button onclick="copyCode()">Salin kode</button><span id="cp" class="muted"></span></div>
