@@ -355,7 +355,7 @@ thaharah:[
  q2:{q:'Apakah ia mahram?',more:'Mahram menurut ustadz ada 18: 7 karena nasab, 7 karena persusuan, 4 karena pernikahan (mertua, anak tiri bila ibunya sudah digauli, ibu tiri, menantu). Rincian ini perlu dicek ke al-Bayan.',o:[['Bukan mahram','rB1'],['Mahram','rT3']]},
  q3:{q:'Dengan bagian tangan yang mana?',more:'Bagian dalam telapak dan jari, yaitu bagian yang tidak terlihat ketika kedua telapak ditempelkan.',o:[['Bagian dalam telapak atau jari','rB2'],['Ujung jari, sela jari, atau punggung tangan','rT4']]},
  rB1:{r:'no',t:'Wudhu batal',d:'Bersentuhan kulit laki-laki dan perempuan yang sama-sama dewasa dan bukan mahram.',p:'hlm. 70–75'},
- rB2:{r:'no',t:'Wudhu batal',d:'Matan menyebut kemaluan manusia (الْآدَمِيّ) secara umum, tanpa membedakan milik sendiri atau orang lain. Kasus anak kecil tidak dibahas di video: lihat Tanyakan ke ustadz.',p:'hlm. 70–75'},
+ rB2:{r:'no',t:'Wudhu batal',d:'Matan menyebut kemaluan manusia (الْآدَمِيّ) secara umum, tanpa membedakan milik sendiri atau orang lain. Kasus anak kecil tidak dibahas oleh ustadz: lihat Tanyakan ke ustadz.',p:'hlm. 70–75'},
  rT1:{r:'ok',t:'Wudhu tidak batal',d:'Yang membatalkan sentuhan kulit, bukan rambut, kuku, atau gigi.',p:'hlm. 70–75'},
  rT2:{r:'ok',t:'Wudhu tidak batal',d:'Matan mensyaratkan keduanya كَبِيرَيْنِ, sudah mencapai usia yang umumnya disyahwati.',p:'hlm. 70–75'},
  rT3:{r:'ok',t:'Wudhu tidak batal',d:'Matan mensyaratkan keduanya أَجْنَبِيَّيْنِ, bukan mahram.',p:'hlm. 70–75'},
@@ -387,7 +387,7 @@ thaharah:[
  rHd:{r:'info',t:'Haid',d:'Haram shalat, puasa, thawaf, menyentuh mushaf, berdiam di masjid, dll. Wajib qadha puasa, tidak qadha shalat. Setelah darah berhenti, puasa sudah halal walau belum mandi.',p:'hlm. 155–160'},
  rNf:{r:'info',t:'Nifas',d:'Hukumnya sama dengan haid (matan: وَيَحْرُمُ بِالنِّفَاسِ مَا يَحْرُمُ بِالْحَيْضِ).',p:'hlm. 160'},
  rIs:{r:'no',t:'Istihadhah, bukan haid',d:'Tetap wajib shalat dan puasa; shalat yang ditinggalkan wajib diqadha (contoh ustadz).',p:'hlm. 155 (syarah)'},
- rLb:{r:'info',t:'Melewati batas: tanyakan ustadz',d:'Sebagian darahnya bukan haid atau nifas. Pembagiannya (mustahadhah) dirinci di syarah dan tidak dibahas detail di video.',p:'hlm. 155–161 (syarah)'}}}
+ rLb:{r:'info',t:'Melewati batas: tanyakan ustadz',d:'Sebagian darahnya bukan haid atau nifas. Pembagiannya (mustahadhah) dirinci di syarah dan tidak dibahas detail oleh ustadz.',p:'hlm. 155–161 (syarah)'}}}
 ],
 shalat:[
 {id:'lupa-rukun',sesi:5,judul:'Lupa satu rukun dalam shalat',ref:'al-Bayan hlm. 202–220 (syarah)',start:'s',
@@ -534,7 +534,7 @@ Q.matan='وَشُرُوطُ الصَّلَاةِ سِتَّةٌ: ١- مَعْر�
 })();
 function trHTML(keys){return keys.map(k=>(TR[k]||[]).map(([a,i],j)=>`<div class="trp" style="margin-top:10px"><p class="ar" style="text-align:right;line-height:2">${a}</p><p style="font-size:14px;margin-top:2px">${i}${rk('M'+k.split('-').pop()+'.'+(j+1))}</p></div>`).join('')).join('');}
 function trKeys(F){const k=F.trk||(F.mk?[F.mk]:null);return k&&k.every(x=>TR[x])?k:null;}
-const TRNOTE='Terjemah mengikuti penjelasan Ustadz di video.';
+const TRNOTE='Terjemah mengikuti penjelasan Ustadz.';
 function matanHTML(F){if(!F.matan&&!trKeys(F))return '';const k=trKeys(F);return `<details class="fmore" style="margin:-6px 0 14px"><summary>Baca matan lengkap</summary>${k?trHTML(k):`<p class="ar" style="text-align:right;margin-top:8px">${F.matan}</p>`}<p class="muted" style="margin-top:8px">Matan disalin dari cetakan al-Bayan hlm. ${F.mp}; harakat mengikuti cetakan.${k?' '+TRNOTE:''}</p></details>`;}
 DETAIL['larangan-hadats']={type:'matriks',bab:'thaharah',c:'pembatal',judul:'Larangan karena hadats',ar:'وَمَنِ انْتَقَضَ وُضُوءُهُ حَرُمَ عَلَيْهِ … · وَيَحْرُمُ بِالحَيْضِ وَالجَنَابَةِ …',p:'77–81, 156–160',intro:'Gabungan dua fasal: larangan hadats kecil dan larangan haidh dan junub. Pilih keadaan untuk melihat apa yang terlarang.',mp:'77–81, 155–160',matan:'وَمَنِ انْتَقَضَ وُضُوءُهُ.. حَرُمَ عَلَيْهِ: الصَّلَاةُ، وَالطَّوَافُ، وَمَسُّ الْمُصْحَفِ، وَحَمْلُهُ، وَاللَّوْحِ الْمَكْتُوبِ لِلدِّرَاسَةِ. وَيَحِلُّ حَمْلُهُ فِي أَمْتِعَةٍ أَوْ دَرَاهِمَ. وَيَحِلُّ حَمْلُهُ لِلصَّبِيِّ الْمُمَيِّزِ وَمَسُّهُ لِلدِّرَاسَةِ.<br><br>وَيَحْرُمُ بِالْحَيْضِ وَالْجَنَابَةِ: الصَّلَاةُ، وَالطَّوَافُ، وَمَسُّ الْمُصْحَفِ، وَحَمْلُهُ، وَاللُّبْثُ فِي الْمَسْجِدِ، وَقِرَاءَةُ الْقُرْآنِ بِقَصْدِ الْقِرَاءَةِ. وَيَحْرُمُ عَلَى الْحَائِضِ وَحْدَهَا: الصَّوْمُ، وَعُبُورُ الْمَسْجِدِ إِنْ خَافَتْ تَلْوِيثَهُ بِالدَّمِ، وَالِاسْتِمْتَاعُ فِيمَا بَيْنَ السُّرَّةِ وَالرُّكْبَةِ. وَالْجِمَاعُ فِي الْحَيْضِ مِنَ الْكَبَائِرِ. وَيَجِبُ عَلَيْهَا قَضَاءُ صَوْمِ رَمَضَانَ، دُونَ الصَّلَاةِ. وَإِذَا انْقَطَعَ الدَّمُ.. حَلَّ لَهَا الصَّوْمُ قَبْلَ الْغُسْلِ. وَيَحْرُمُ بِالنِّفَاسِ مَا يَحْرُمُ بِالْحَيْضِ.',
 states:['Hadats kecil','Junub','Haidh / nifas','Darah berhenti, belum mandi'],short:['Hadats<br>kecil','Junub','Haidh','Belum<br>mandi'],
@@ -557,7 +557,7 @@ kaidah:[
  {st:[2],warn:true,t:'Jima\' saat haidh termasuk dosa besar.',p:'159'},
  {st:[3],t:'Darah berhenti: puasa langsung halal walau belum mandi. Keharaman lainnya tetap berlaku sampai mandi.',p:'160'}]};
 let MX=0,MXG=false;
-const REVIEW=false, APPVER='v0.31';
+const REVIEW=false, APPVER='v0.32';
 function rk(c){return REVIEW?`<span class="rk">${c}</span>`:'';}
 const RVBAR=`<div class="rvbar">DRAF ${APPVER} · untuk review asatidzah, belum untuk peserta · <a href="#beranda" onclick="setTimeout(()=>{const g=document.getElementById('rvg');g&&g.scrollIntoView()},50)">cara memberi catatan</a></div>`;
 function reviewGuideHTML(){return `<div class="card rvguide" id="rvg" style="margin-top:14px;border:2px solid #B4232A"><b style="font-size:16px">Panduan review untuk asatidzah</b>
@@ -606,7 +606,7 @@ function viewFasal(key){
   h+=F.items.map((it,i)=>`<div class="fitem cat-${F.c}"><div class="row" style="align-items:flex-start"><span class="fnum" style="color:var(--${v}-fg)">${i+1}</span><div style="flex:1"><div class="row" style="justify-content:space-between;align-items:baseline;gap:8px"><b style="font-size:15px">${it.t}${rk('F'+F.p+'.'+(i+1))}</b><span class="ar">${it.ar}</span></div>${it.n?`<p style="font-size:13px;margin-top:2px">${it.n}</p>`:''}${more(it.more,it.p,it.tm)}</div></div></div>`).join('');
   h+=(F.kaidah||[]).map((k,j)=>`<div class="kaidah"><div class="kl">${ico('i-scale')} KAIDAH${rk('F'+F.p+'.KD'+(j+1))}</div>${k.t}<div style="font-size:11px;opacity:.7;margin-top:4px">al-Bayan hlm. ${k.p}</div></div>`).join('');
   h+=`</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px">`;
-  h+=F.quiz?`<button onclick="goQuiz(${F.quiz})">${ico('i-quiz')} Kuis fasal ini</button>`:`<button onclick="document.getElementById('qmsg').textContent='Kuis fasal ini disusun dari transkrip video.'">${ico('i-quiz')} Kuis fasal ini</button>`;
+  h+=F.quiz?`<button onclick="goQuiz(${F.quiz})">${ico('i-quiz')} Kuis fasal ini</button>`:`<button onclick="document.getElementById('qmsg').textContent='Kuis fasal ini disusun dari materi kajian.'">${ico('i-quiz')} Kuis fasal ini</button>`;
   h+=F.banding?`<button onclick="go('banding-${key}')">${ico('i-cards')} Bandingkan: ${DETAIL[F.banding].judul.toLowerCase()}</button>`:`<span></span>`;
   h+=`</div>${F.flow?(()=>{const FF=(FLOWS[F.bab]||[]).find(x=>x.id===F.flow);return FF?`<button style="width:100%;margin-top:8px;text-align:left" onclick="btab='alur';FL={f:'${FF.id}',node:'${FF.start}',path:[]};go('bab-${F.bab}')">${ico('i-quiz')} Diagram alur: ${FF.judul}</button>`:''})():''}<p id="qmsg" class="muted" style="margin-top:6px"></p>`;
   return h;
@@ -648,7 +648,7 @@ const SESSIONS=[
  {n:8,day:'Ahad, 29 Nov',region:'hajj',regions:['shiyam','hajj','buyu'],title:"Puasa, i'tikaf, haji & umrah, jual beli",f:[58,74],pp:[347,442],v:'zVRsRuw484s',dur:'1:41:27'}
 ];
 // Data kuis & flashcard Sesi 1 — draf 22 Nov 2026, belum direview.
-// tm = detik video (rujukan menit ±30 dtk dari caption). p = rujukan al-Bayan.
+// tm = detik rekaman (rujukan menit ±30 dtk dari caption). p = rujukan al-Bayan.
 // Jenis: (kosong)=benar/salah, 'urut'=susun urutan, 'sortir'=pilah ke keranjang, 'pg'=pilihan ganda/studi kasus.
 const QUIZ1=[
  {q:'Fardhu wudhu dalam matan ada enam.',a:true,
@@ -1588,10 +1588,10 @@ const GROUPS={
 let OPEN={};
 // Matan per fasal yang belum punya DETAIL. Kunci: bab-halaman node TREE. Disalin dari gambar halaman al-Bayan (22 Nov), belum direview.
 const MATAN={
-'thaharah-67':{none:true,note:'Di cetakan al-Bayan, halaman fasal ini tidak memuat teks matan: judul dan isinya berasal dari pensyarah. Fasal ini juga tidak terdengar dibahas di video kajian.'},
+'thaharah-67':{none:true,note:'Di cetakan al-Bayan, halaman fasal ini tidak memuat teks matan: judul dan isinya berasal dari pensyarah. Fasal ini juga tidak terdengar dibahas dalam kajian.'},
 'thaharah-50':{none:true,note:'Bagian ini uraian pensyarah tentang niat. Matannya sudah tercakup di fasal Fardhu wudhu (fardhu pertama: niat).'},
 'thaharah-82':{mp:'82–91',ar:'فَصْلٌ: يُقَدِّمُ دَاخِلُ الْخَلَاءِ يَسَارَهُ، وَإِذَا خَرَجَ يَمِينَهُ. وَلَا يَحْمِلُ ذِكْرَ اللهِ تَعَالَى وَاسْمَ رَسُولِهِ وَالْقُرْآنَ. وَيُغَطِّي رَأْسَهُ. وَيَبْعُدُ وَيَسْتَتِرُ. وَلَا يَبُولُ فِي مَاءٍ رَاكِدٍ وَقَلِيلِ جَارٍ، وَجُحْرٍ، وَمَهَبِّ رِيحٍ، وَظِلٍّ مَقْصُودٍ، وَطَرِيقٍ، وَتَحْتَ شَجَرَةٍ مُثْمِرَةٍ. وَلَا يَتَكَلَّمُ. وَيَسْتَبْرِئُ مِنَ الْبَوْلِ. وَيَقُولُ إِذَا دَخَلَ: «بِاسْمِ اللهِ، اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ». وَإِذَا خَرَجَ: «غُفْرَانَكَ، الْحَمْدُ لِلَّهِ الَّذِي أَذْهَبَ عَنِّي الْأَذَى وَعَافَانِي».'},
-'thaharah-92':{none:true,note:'Di cetakan al-Bayan, halaman fasal ini tidak memuat teks matan: judul dan isinya berasal dari pensyarah. Fasal ini juga tidak terdengar dibahas di video kajian.'},
+'thaharah-92':{none:true,note:'Di cetakan al-Bayan, halaman fasal ini tidak memuat teks matan: judul dan isinya berasal dari pensyarah. Fasal ini juga tidak terdengar dibahas dalam kajian.'},
 'thaharah-95':{mp:'95–98',ar:'فَصْلٌ: وَيَجِبُ الْغُسْلُ مِنْ خَمْسَةِ أَشْيَاءَ: مِنْ إِيلَاجِ الْحَشَفَةِ فِي الْفَرْجِ. وَمِنْ خُرُوجِ الْمَنِيِّ. وَمِنَ الْحَيْضِ، وَالنِّفَاسِ، وَالْوِلَادَةِ.'},
 'thaharah-100':{mp:'100–101',ar:'فَصْلٌ: فُرُوضُ الْغُسْلِ شَيْئَانِ: الْأَوَّلُ: النِّيَّةُ، وَهُوَ أَنْ يَنْوِيَ رَفْعَ الْجَنَابَةِ، أَوْ رَفْعَ الْحَدَثِ الْأَكْبَرِ، أَوْ فَرْضَ الْغُسْلِ، أَوْ نَحْوَ ذَلِكَ عِنْدَ غَسْلِ أَوَّلِ جُزْءٍ مِنْ بَدَنِهِ. الثَّانِي: غَسْلُ جَمِيعِ شَعْرِهِ الْكَثِيفِ وَالْخَفِيفِ وَجَمِيعِ بَشَرَتِهِ حَتَّى مَا تَحْتَ قُلْفَةِ الْأَقْلَفِ.'},
 'thaharah-102':{mp:'102–104',ar:'وَسُنَنُهُ: السِّوَاكُ، وَالتَّسْمِيَةُ، وَالْوُضُوءُ قَبْلَ الْغُسْلِ، وَتَعَهُّدُ الْمَعَاطِفِ، وَتَخْلِيلُ الشَّعْرِ، وَالدَّلْكُ، وَالتَّثْلِيثُ.'},
@@ -2079,7 +2079,7 @@ Object.assign(DETAIL['fardhu-wudhu'],{leave:'Wudhu tidak sah'});Object.assign(DE
 Object.assign(DETAIL['fardhu-mandi'],{leave:'Mandi tidak sah'});Object.assign(DETAIL['sunnah-mandi'],{leave:'Mandi tetap sah'});
 Object.assign(DETAIL['rukun-shalat'],{leave:'Shalat tidak sah'});Object.assign(DETAIL['sunnah-shalat'],{leave:'Shalat tetap sah; sunnah ab\'adh → sunnah sujud sahwi'});
 Object.assign(DETAIL['rukun-haji'],{leave:'Haji tidak sah'});Object.assign(DETAIL['wajib-haji'],{leave:'Haji sah, wajib dam'});
-// Terjemah matan per kalimat, mengikuti bacaan & terjemah Ustadz di video. Draf, belum direview.
+// Terjemah matan per kalimat, mengikuti bacaan & terjemah Ustadz.
 const TR={};
 TR['thaharah-47']=[
  ['فُرُوضُ الْوُضُوءِ سِتَّةُ أَشْيَاءَ:','Fardhu-fardhu wudhu ada enam perkara:'],
@@ -2606,7 +2606,7 @@ function viewSesi(n){
   const s=SESSIONS.find(x=>x.n===n);
   const head=`<button onclick="go('beranda')" class="row">${ico('i-left')}Beranda</button><p class="muted" style="margin-top:14px">${s.day}</p><h1>Sesi ${n}</h1><p class="muted">${s.title}</p><p class="muted" style="font-size:13px;margin-top:4px">Fasal #${s.f[0]}–#${s.f[1]} · al-Bayan hlm. ${s.pp[0]}–${s.pp[1]}</p>
   <div class="tabs">${[['pohon','i-tree','Pohon'],['kartu','i-cards','Kartu'],['kuis','i-quiz','Kuis'],['ulang','i-flip','Ulang']].map(([k,i,l])=>`<button class="${tab===k?'on':''}" onclick="setTab(${n},'${k}')">${ico(i)}${l}</button>`).join('')}</div>`;
-  if(tab!=='pohon'&&!QUIZ[n])return head+`<div class="banner">Kartu, kuis, dan flashcard sesi ${n} sedang disusun dari transkrip video. Tab Pohon sudah bisa dibuka.</div>`;
+  if(tab!=='pohon'&&!QUIZ[n])return head+`<div class="banner">Kartu, kuis, dan flashcard sesi ${n} sedang disusun dari materi kajian. Tab Pohon sudah bisa dibuka.</div>`;
   let body='';
   if(tab==='pohon'){body=`<p class="muted" style="margin-bottom:10px">Ketuk cabang untuk membuka. Warna menunjukkan jenis hukum.</p><div class="stack">${s.regions.flatMap(r=>(TREE[r]||[]).filter(x=>x.p>=s.pp[0]&&x.p<=s.pp[1])).map(nodeHTML).join('')}</div>`;}
   if(tab==='kartu'){const K=KARTU[n],SF=SESIFLOW[n],FF=SF&&(FLOWS[SF[0]]||[]).find(x=>x.id===SF[1]);body=`${K?`<div class="card"><p class="muted">al-Bayan hlm. ${K.p}${rk('S'+n+'-KA')}</p><div class="row" style="align-items:baseline;margin:4px 0 12px"><span style="font-size:44px;font-weight:700;color:var(--ru-fg);line-height:1">${K.n}</span><b>${K.t}</b></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">${K.items.map((t,i)=>`<div class="leaf cat-${K.c}" style="font-size:13px">${ico(CAT[K.c].icon)}${i+1}. ${t}</div>`).join('')}</div></div>`:''}
@@ -2698,12 +2698,12 @@ window.go=function(v){if(v.startsWith('sesi-')){tab='pohon';QS={i:0,score:0,answ
 const DISC_T='Isi aplikasi ini disusun dari rekaman kajian dan syarah al-Bayan sebagai alat bantu belajar. <b>Belum direview ustadz.</b> Rujukan utama tetap penjelasan ustadz di kelas dan kitabnya. Bila ada yang berbeda, ikuti ustadz, dan beri tahu penyusun aplikasi agar diperbaiki.';
 const ASK=[
  {g:'Dicabut dari kuis karena jawabannya belum pasti',d:'Tiga hal ini sengaja tidak dijadikan soal berskor.',items:[
-  {q:'Menceboki anak kecil sampai telapak tangan menyentuh kemaluannya: batalkah wudhu?',n:'Matan menyebut kemaluan manusia secara umum. Kasus anak kecil tidak dibahas di video.',r:'Sesi 1 · al-Bayan hlm. 70–75'},
-  {q:'Setelah mandi wajib ada bagian rambut yang belum terbasuh: cukup dibasuh bagian itu saja?',n:'Disimpulkan dari fardhu mandi (niat dan meratakan air), tidak dibahas di video.',r:'Sesi 2 · al-Bayan hlm. 100–101'},
-  {q:'Thawaf qudum: apakah sunnah?',n:'Tidak disebut di matan maupun di video.',r:'Sesi 8 · al-Bayan hlm. 379–389'}]},
+  {q:'Menceboki anak kecil sampai telapak tangan menyentuh kemaluannya: batalkah wudhu?',n:'Matan menyebut kemaluan manusia secara umum. Kasus anak kecil tidak dibahas oleh ustadz.',r:'Sesi 1 · al-Bayan hlm. 70–75'},
+  {q:'Setelah mandi wajib ada bagian rambut yang belum terbasuh: cukup dibasuh bagian itu saja?',n:'Disimpulkan dari fardhu mandi (niat dan meratakan air), tidak dibahas oleh ustadz.',r:'Sesi 2 · al-Bayan hlm. 100–101'},
+  {q:'Thawaf qudum: apakah sunnah?',n:'Tidak disebut di matan maupun dalam kajian.',r:'Sesi 8 · al-Bayan hlm. 379–389'}]},
  {g:'Sengaja tidak dirinci atau tidak dimasukkan',d:'Rinciannya panjang atau belum dicek, jadi aplikasi tidak memberi kesimpulan.',items:[
   {q:'Darah yang melewati batas haid atau nifas (istihadhah/mustahadhah): bagaimana rinciannya?',n:'Di aplikasi hanya diarahkan untuk bertanya, tanpa rincian.',r:'Sesi 4'},
-  {q:'Wanita yang darahnya sudah berhenti tetapi belum mandi: bolehkah melewati masjid?',n:'Video hanya menyebut yang ikut halal: puasa, talak, dan bersuci dengan niat ibadah.',r:'Sesi 4'},
+  {q:'Wanita yang darahnya sudah berhenti tetapi belum mandi: bolehkah melewati masjid?',n:'Ustadz hanya menyebut yang ikut halal: puasa, talak, dan bersuci dengan niat ibadah.',r:'Sesi 4'},
   {q:'Najis yang dimaafkan: darah bisul/jerawat dan darah hewan yang darahnya tidak mengalir.',n:'Redaksi al-Bayan dan modul berbeda (al-Bayan: دم البثرات, modul: دم البراغيث). Ustadz menyebut keduanya.',r:'Sesi 4'},
   {q:'Daftar mahram yang 18 (7 nasab, 7 persusuan, 4 pernikahan).',n:'Angka dan rincian dari penjelasan ustadz, belum dicek ke al-Bayan.',r:'Sesi 1'},
   {q:'Urutan prioritas penerima zakat fitrah.',n:'Tidak dimasukkan karena belum dicocokkan dengan syarah.',r:'Sesi 7'},
@@ -2713,7 +2713,7 @@ const ASK=[
   {q:'Nisab emas ±85 g dan perak ±595 g.',n:'Konversi dari 20 mitsqal dan 200 dirham.',r:'Sesi 7'},
   {q:'Dua qullah ±200–216 liter.',n:'Ustadz menyebut beberapa versi; ambil yang lebih besar untuk berhati-hati.',r:'Sesi 2'},
   {q:'Dua marhalah ±83 km, 300 hasta ±150 m, kedalaman kubur ±2,25 m, jarak menjauh ±1,5 m.',n:'Konversi dari penjelasan ustadz.',r:'Sesi 2, 6, 7'}]},
- {g:'Rincian dari penjelasan ustadz, bukan teks matan',d:'Ditulis mengikuti video. Belum dicek ke al-Bayan.',items:[
+ {g:'Rincian dari penjelasan ustadz, bukan teks matan',d:'Ditulis mengikuti penjelasan ustadz. Belum dicek ke al-Bayan.',items:[
   {q:'Akibat jimak saat ihram: umrah, haji sebelum dan sesudah tahallul awal, beserta kafaratnya.',n:'',r:'Sesi 8'},
   {q:'Aturan lupa rukun shalat, urutan shalat bagi yang tak mampu berdiri, pengganti Fatihah, minimal rukuk, shalawat minimal.',n:'',r:'Sesi 5'},
   {q:'Musafir harus sudah keluar daerah sebelum fajar agar boleh tidak berpuasa; fidyah 1 mud tidak dibagi dua orang; ibu hamil yang khawatir atas diri dan janin; wanita berhaji dengan wanita tepercaya.',n:'',r:'Sesi 8'},
@@ -2723,7 +2723,7 @@ function viewTanya(){return `<h1>Tanyakan ke ustadz</h1><p class="muted">Bagian-
 function viewTentang(){return `<h1>Tentang aplikasi</h1>
  <div class="warn"><b>Belum direview ustadz</b><p style="margin-top:6px;line-height:1.55">${DISC_T}</p></div>
  <h2 style="margin-top:20px">Dari mana isinya</h2>
- <p style="line-height:1.55">Bahan utamanya rekaman 8 sesi kajian al-Mukhtashar al-Lathif oleh Ustadz Abu Husain Agus Waluyo dan syarah al-Bayan wa at-Ta'rif. Soal kuis, kartu, pohon fasal, diagram alur, dan terjemah matan dirangkum dari takarir (caption) otomatis video dan dari al-Bayan, sehingga kata yang salah dengar atau salah tangkap mungkin ada.</p>
+ <p style="line-height:1.55">Bahan utamanya rekaman 8 sesi kajian al-Mukhtashar al-Lathif oleh Ustadz Abu Husain Agus Waluyo dan syarah al-Bayan wa at-Ta'rif. Soal kuis, kartu, pohon fasal, diagram alur, dan terjemah matan dirangkum dari takarir (caption) otomatis rekaman kajian dan dari al-Bayan, sehingga kata yang salah dengar atau salah tangkap mungkin ada.</p>
  <p style="line-height:1.55;margin-top:8px">Teks Arab matan disalin dari cetakan al-Bayan dan belum dibaca ulang oleh orang lain. Untuk hafalan, ikuti kitab cetak bila ada selisih.</p>
  <p style="line-height:1.55;margin-top:8px">Aplikasi ini disusun terpisah dan bukan produk resmi penyelenggara kajian.</p>
  <h2 style="margin-top:20px">Data Anda</h2>
