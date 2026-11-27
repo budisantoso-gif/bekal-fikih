@@ -534,7 +534,7 @@ Q.matan='وَشُرُوطُ الصَّلَاةِ سِتَّةٌ: ١- مَعْر�
 })();
 function trHTML(keys){return keys.map(k=>(TR[k]||[]).map(([a,i],j)=>`<div class="trp" style="margin-top:10px"><p class="ar" style="text-align:right;line-height:2">${a}</p><p style="font-size:14px;margin-top:2px">${i}${rk('M'+k.split('-').pop()+'.'+(j+1))}</p></div>`).join('')).join('');}
 function trKeys(F){const k=F.trk||(F.mk?[F.mk]:null);return k&&k.every(x=>TR[x])?k:null;}
-const TRNOTE='Terjemah mengikuti penjelasan Ustadz di video; belum direview.';
+const TRNOTE='Terjemah mengikuti penjelasan Ustadz di video.';
 function matanHTML(F){if(!F.matan&&!trKeys(F))return '';const k=trKeys(F);return `<details class="fmore" style="margin:-6px 0 14px"><summary>Baca matan lengkap</summary>${k?trHTML(k):`<p class="ar" style="text-align:right;margin-top:8px">${F.matan}</p>`}<p class="muted" style="margin-top:8px">Matan disalin dari cetakan al-Bayan hlm. ${F.mp}; harakat mengikuti cetakan.${k?' '+TRNOTE:''}</p></details>`;}
 DETAIL['larangan-hadats']={type:'matriks',bab:'thaharah',c:'pembatal',judul:'Larangan karena hadats',ar:'وَمَنِ انْتَقَضَ وُضُوءُهُ حَرُمَ عَلَيْهِ … · وَيَحْرُمُ بِالحَيْضِ وَالجَنَابَةِ …',p:'77–81, 156–160',intro:'Gabungan dua fasal: larangan hadats kecil dan larangan haidh dan junub. Pilih keadaan untuk melihat apa yang terlarang.',mp:'77–81, 155–160',matan:'وَمَنِ انْتَقَضَ وُضُوءُهُ.. حَرُمَ عَلَيْهِ: الصَّلَاةُ، وَالطَّوَافُ، وَمَسُّ الْمُصْحَفِ، وَحَمْلُهُ، وَاللَّوْحِ الْمَكْتُوبِ لِلدِّرَاسَةِ. وَيَحِلُّ حَمْلُهُ فِي أَمْتِعَةٍ أَوْ دَرَاهِمَ. وَيَحِلُّ حَمْلُهُ لِلصَّبِيِّ الْمُمَيِّزِ وَمَسُّهُ لِلدِّرَاسَةِ.<br><br>وَيَحْرُمُ بِالْحَيْضِ وَالْجَنَابَةِ: الصَّلَاةُ، وَالطَّوَافُ، وَمَسُّ الْمُصْحَفِ، وَحَمْلُهُ، وَاللُّبْثُ فِي الْمَسْجِدِ، وَقِرَاءَةُ الْقُرْآنِ بِقَصْدِ الْقِرَاءَةِ. وَيَحْرُمُ عَلَى الْحَائِضِ وَحْدَهَا: الصَّوْمُ، وَعُبُورُ الْمَسْجِدِ إِنْ خَافَتْ تَلْوِيثَهُ بِالدَّمِ، وَالِاسْتِمْتَاعُ فِيمَا بَيْنَ السُّرَّةِ وَالرُّكْبَةِ. وَالْجِمَاعُ فِي الْحَيْضِ مِنَ الْكَبَائِرِ. وَيَجِبُ عَلَيْهَا قَضَاءُ صَوْمِ رَمَضَانَ، دُونَ الصَّلَاةِ. وَإِذَا انْقَطَعَ الدَّمُ.. حَلَّ لَهَا الصَّوْمُ قَبْلَ الْغُسْلِ. وَيَحْرُمُ بِالنِّفَاسِ مَا يَحْرُمُ بِالْحَيْضِ.',
 states:['Hadats kecil','Junub','Haidh / nifas','Darah berhenti, belum mandi'],short:['Hadats<br>kecil','Junub','Haidh','Belum<br>mandi'],
@@ -557,7 +557,7 @@ kaidah:[
  {st:[2],warn:true,t:'Jima\' saat haidh termasuk dosa besar.',p:'159'},
  {st:[3],t:'Darah berhenti: puasa langsung halal walau belum mandi. Keharaman lainnya tetap berlaku sampai mandi.',p:'160'}]};
 let MX=0,MXG=false;
-const REVIEW=false, APPVER='v0.30';
+const REVIEW=false, APPVER='v0.31';
 function rk(c){return REVIEW?`<span class="rk">${c}</span>`:'';}
 const RVBAR=`<div class="rvbar">DRAF ${APPVER} · untuk review asatidzah, belum untuk peserta · <a href="#beranda" onclick="setTimeout(()=>{const g=document.getElementById('rvg');g&&g.scrollIntoView()},50)">cara memberi catatan</a></div>`;
 function reviewGuideHTML(){return `<div class="card rvguide" id="rvg" style="margin-top:14px;border:2px solid #B4232A"><b style="font-size:16px">Panduan review untuk asatidzah</b>
@@ -589,7 +589,7 @@ function viewMatriks(key){
     h+=`<p style="margin:14px 0 8px"><b>${n}</b> dari ${F.rows.length} perbuatan terlarang saat <b>${F.states[MX].toLowerCase()}</b></p><div class="stack" style="gap:6px">`+F.rows.map(x=>{const st=S2[x.s[MX]];return `<div class="mrow ${st[1]}">${ico(st[2])}<div style="flex:1"><b style="font-size:14px">${x.t}</b>${rk('F'+F.p+'.'+(F.rows.indexOf(x)+1))}${x.more?`<details class="fmore"><summary>Selengkapnya</summary><p>${x.more}</p><p class="muted" style="margin-top:4px">al-Bayan hlm. ${x.p}</p></details>`:''}</div><span class="stat">${st[0]}</span></div>`}).join('')+`</div>`;
     h+=F.kaidah.filter(k=>k.st.includes(MX)).map(k=>k.warn?`<div class="warn" style="margin-top:10px"><b>Peringatan.</b> ${k.t}<div style="font-size:11px;margin-top:4px">al-Bayan hlm. ${k.p}</div></div>`:`<div class="kaidah" style="margin-top:10px"><div class="kl">${ico('i-scale')} KAIDAH</div>${k.t}<div style="font-size:11px;opacity:.7;margin-top:4px">al-Bayan hlm. ${k.p}</div></div>`).join('');
   }
-  return h+`<div class="banner" style="margin-top:14px">Draf dari OCR al-Bayan, belum direview. Tanda "Perlu konfirmasi" ditanyakan ke ustadz.</div>`;
+  return h+``;
 }
 const CV={syarat:'sy',rukun:'ru',wajib:'wj',sunnah:'su',makruh:'mk',pembatal:'pb',netral:'nt'};
 function viewFasal(key){
@@ -608,7 +608,7 @@ function viewFasal(key){
   h+=`</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px">`;
   h+=F.quiz?`<button onclick="goQuiz(${F.quiz})">${ico('i-quiz')} Kuis fasal ini</button>`:`<button onclick="document.getElementById('qmsg').textContent='Kuis fasal ini disusun dari transkrip video.'">${ico('i-quiz')} Kuis fasal ini</button>`;
   h+=F.banding?`<button onclick="go('banding-${key}')">${ico('i-cards')} Bandingkan: ${DETAIL[F.banding].judul.toLowerCase()}</button>`:`<span></span>`;
-  h+=`</div>${F.flow?(()=>{const FF=(FLOWS[F.bab]||[]).find(x=>x.id===F.flow);return FF?`<button style="width:100%;margin-top:8px;text-align:left" onclick="btab='alur';FL={f:'${FF.id}',node:'${FF.start}',path:[]};go('bab-${F.bab}')">${ico('i-quiz')} Diagram alur: ${FF.judul}</button>`:''})():''}<p id="qmsg" class="muted" style="margin-top:6px"></p><div class="banner" style="margin-top:14px">Draf, belum direview. Matan dari cetakan al-Bayan (tidak tersedia di Shamela).</div>`;
+  h+=`</div>${F.flow?(()=>{const FF=(FLOWS[F.bab]||[]).find(x=>x.id===F.flow);return FF?`<button style="width:100%;margin-top:8px;text-align:left" onclick="btab='alur';FL={f:'${FF.id}',node:'${FF.start}',path:[]};go('bab-${F.bab}')">${ico('i-quiz')} Diagram alur: ${FF.judul}</button>`:''})():''}<p id="qmsg" class="muted" style="margin-top:6px"></p>`;
   return h;
 }
 function viewBanding(key){
@@ -617,7 +617,7 @@ function viewBanding(key){
   return `<button onclick="go('fasal-${key}')" class="row">${ico('i-left')}${A.judul}</button><h1 style="margin-top:14px">Kembar tapi beda</h1><p class="muted" style="margin-bottom:12px">Dua fasal yang sering tertukar. Bandingkan isinya.</p>
   <div class="twin" style="align-items:start">${col(A)}${col(B)}</div>
   ${A.leave&&B.leave?`<div class="twin" style="margin-top:12px"><div class="card cat-${A.c}" style="border:none;font-size:13px"><b>Ditinggalkan</b><br>${A.leave}</div><div class="card cat-${B.c}" style="border:none;font-size:13px"><b>Ditinggalkan</b><br>${B.leave}</div></div>`:''}
-  <div class="banner" style="margin-top:14px">Draf, wajib review.</div>`;
+  `;
 }
 window.goQuiz=function(n){go('sesi-'+n);tab='kuis';};
 let FL={f:null,node:null,path:[]};
@@ -631,7 +631,7 @@ function flowHTML(rid){
   h+=FL.path.map(x=>`<div class="row muted" style="gap:6px">${ico('i-check')}${x}</div>`).join('');
   if(n.r){const ok=n.r==='suci'||n.r==='ok',inf=n.r==='info';h+=`<div class="card ${ok?'cat-sunnah':inf?'cat-syarat':'cat-pembatal'}" style="border:none;margin-top:10px"><div class="row">${ico(ok?'i-check':inf?'i-quiz':'i-ban','lg')}<b style="font-size:18px">${n.t}</b>${rk('A:'+F.id+'/'+FL.node)}</div><p style="font-size:14px;margin-top:8px">${n.d}</p><p style="font-size:12px;margin-top:4px">Rujukan: al-Bayan ${n.p}</p></div>`;}
   else{h+=`<div class="card" style="margin-top:10px"><b>${n.q}</b>${rk('A:'+F.id+'/'+FL.node)}${n.more?more(n.more):''}${n.h?`<div class="stack" style="margin-top:10px">${n.h.map(x=>`<div class="leaf cat-netral" style="display:block;font-size:13px">${x[0]}${more(x[1])}</div>`).join('')}</div>`:''}<div class="stack" style="margin-top:12px">${n.o.map((o,i)=>`<button style="text-align:left" onclick="flowPick(${i})">${o[0]}</button>`).join('')}</div></div>`;}
-  h+=`<div class="row" style="justify-content:space-between;margin-top:10px"><span class="muted">Draf, wajib review</span><button onclick="FL.node=null;FL.path=[];render()">Ulang</button></div>`;
+  h+=`<div class="row" style="justify-content:space-between;margin-top:10px"><span></span><button onclick="FL.node=null;FL.path=[];render()">Ulang</button></div>`;
   return h;
 }
 window.flowPick=function(i){const F=Object.values(FLOWS).flat().find(x=>x.id===FL.f);const o=F.N[FL.node].o[i];FL.path.push(o[0]);FL.node=o[1];render();
@@ -2542,7 +2542,7 @@ Object.assign(DETAIL['fardhu-wudhu'],{trk:['thaharah-47']});Object.assign(DETAIL
 (function(){const T={'air-najis':['thaharah-116','thaharah-120'],'sentuh-batal':['thaharah-70'],'cuci-najis':['thaharah-128'],'darah-wanita':['thaharah-155'],'mutabaah':['shalat-259'],'zakat-tanaman':['zakat-319'],'langgar-ihram':['hajj-402']};Object.values(FLOWS).forEach(a=>(a||[]).forEach(F=>{if(T[F.id])F.trk=T[F.id];}));})();
 function matanInfoHTML(M,key){
   if(M.none)return `<div class="card" style="margin-top:14px"><span class="pill cat-netral">Tanpa matan</span><p style="margin-top:8px">${M.note}</p></div>`;
-  return `<div class="card" style="margin-top:14px"><p class="muted">Matan · al-Bayan hlm. ${M.mp}</p>${key&&TR[key]?trHTML([key]):`<p class="ar" style="text-align:right;margin-top:8px;line-height:2">${M.ar}</p>`}${M.note?`<p class="muted" style="margin-top:6px">${M.note}</p>`:''}<p class="muted" style="margin-top:6px;font-size:12px">Matan disalin dari cetakan al-Bayan; harakat mengikuti cetakan.${key&&TR[key]?' '+TRNOTE:' Belum direview.'}</p></div>`;
+  return `<div class="card" style="margin-top:14px"><p class="muted">Matan · al-Bayan hlm. ${M.mp}</p>${key&&TR[key]?trHTML([key]):`<p class="ar" style="text-align:right;margin-top:8px;line-height:2">${M.ar}</p>`}${M.note?`<p class="muted" style="margin-top:6px">${M.note}</p>`:''}<p class="muted" style="margin-top:6px;font-size:12px">Matan disalin dari cetakan al-Bayan; harakat mengikuti cetakan.${key&&TR[key]?' '+TRNOTE:''}</p></div>`;
 }
 function viewInfo(rid,pth){
   const r=REGIONS.find(x=>x.id===rid);if(!r||!TREE[rid])return viewBeranda();
@@ -2550,7 +2550,7 @@ function viewInfo(rid,pth){
   return `<button onclick="btab='pohon';go('bab-${rid}')" class="row">${ico('i-left')}${r.name}</button>
   <p class="muted" style="margin-top:14px">${r.name} · al-Bayan hlm. ${n.p}</p><p class="ar" style="margin:6px 0 2px">${n.ar}</p>
   <div class="row" style="flex-wrap:wrap;gap:8px"><h1 style="margin:0">${n.id}</h1><span class="pill cat-${n.c}">${ico(CAT[n.c].icon)}${CAT[n.c].label}</span>${rk('P'+n.p)}</div>
-  ${MATAN[rid+'-'+n.p]?matanInfoHTML(MATAN[rid+'-'+n.p],rid+'-'+n.p):''}${MATAN[rid+'-'+n.p]&&MATAN[rid+'-'+n.p].none?'':`<div class="card" style="margin-top:14px;text-align:center;padding:22px 16px">${ico('i-tree','lg')}<p style="margin-top:8px"><b>Pohon fasal menyusul</b></p><p class="muted" style="margin-top:4px">Pohon fasal ini sedang disusun dari matan dan penjelasan ustadz di video. Sementara, rujuk al-Bayan hlm. ${n.p}.</p></div>`}`;
+  ${MATAN[rid+'-'+n.p]?matanInfoHTML(MATAN[rid+'-'+n.p],rid+'-'+n.p):''}${MATAN[rid+'-'+n.p]&&MATAN[rid+'-'+n.p].none?'':`<div class="card" style="margin-top:14px;text-align:center;padding:22px 16px">${ico('i-tree','lg')}<p style="margin-top:8px"><b>Pohon fasal belum tersedia</b></p><p class="muted" style="margin-top:4px">Bahasan ini belum dirangkum di aplikasi. Rujuk al-Bayan hlm. ${n.p}.</p></div>`}`;
 }
 function petaBabHTML(rid){
   const r=REGIONS.find(x=>x.id===rid),T=TREE[rid]||[],G=GROUPS[rid]||[['Bahasan',T.map((_,i)=>i),'']];
@@ -2559,7 +2559,7 @@ function petaBabHTML(rid){
   const row=(n,sub,pth)=>{const tag=n.d?`${cnt(n.d)} ›`:n.f?'Alur ›':'›';const act=n.d?`go('fasal-${n.d}')`:n.f?`btab='alur';FL={f:'${n.f}',node:'s',path:[]};render();scrollTo(0,0)`:`go('info-${rid}-${pth}')`;return `<button class="prow${sub?' sub':''}" onclick="${act}"><span class="pdot" style="background:${CATHEX[n.c]}"></span><span style="flex:1">${n.id}</span><span class="pgo${n.d||n.f?'':' dim'}">${tag}</span></button>`;};
   let h=`<div class="pstrip">${G.map((g,i)=>`<button aria-label="Mabhats ${i+1}" onclick="OPEN['${rid}']=${i};render()" style="background:${r.color};opacity:${i===o?1:.28}"></button>`).join('')}</div><p class="muted" style="margin:-4px 0 10px;font-size:12px">Mabhats = pokok bahasan. Pengelompokan ini untuk memudahkan belajar; urutan fasal tetap mengikuti kitab.</p>`;
   h+=`<div class="stack" style="gap:8px">`+G.map((g,i)=>{const op=i===o;return `<div class="pst${op?' open':''}" style="--mmc:${r.color}"><button class="phead" onclick="OPEN['${rid}']=${op?-1:i};render()"><span class="pnum">${i+1}</span><span style="flex:1;text-align:left"><span class="muted" style="font-size:10.5px;letter-spacing:.07em;font-weight:700">MABHATS ${i+1}</span><br><b style="font-size:15px">${g[0]}</b><br><span class="muted" style="font-size:12.5px">${g[2]||''}</span></span><span class="muted" style="font-size:12px;white-space:nowrap">${g[1].length} fasal</span>${ico(op?'i-up':'i-down2')}</button>${op?`<div class="plist">${g[1].map(j=>{const n=T[j];return n?row(n,false,j)+(n.k||[]).map((k,ki)=>row(k,true,j+'-'+ki)).join(''):''}).join('')}</div>`:''}</div>`}).join('')+`</div>`;
-  return h+`<p class="muted" style="margin-top:10px">Titik warna = jenis hukum (lihat Kunci warna). Angka dengan › = poin yang sudah bisa dibuka. Alur › = diagram alur. › abu-abu = isi menyusul.</p>`;
+  return h+`<p class="muted" style="margin-top:10px">Titik warna = jenis hukum (lihat Kunci warna). Angka dengan › = poin yang sudah bisa dibuka. Alur › = diagram alur. › abu-abu = belum tersedia.</p>`;
 }
 function mindmapHTML(rid){
   const r=REGIONS.find(x=>x.id===rid),T=TREE[rid]||[],G=GROUPS[rid]||[['Bahasan',T.map((_,i)=>i)]];
@@ -2614,7 +2614,7 @@ function viewSesi(n){
   <h2>Kembar tapi beda</h2>${(TWINS[n]||[]).map((t,ti)=>`${rk('S'+n+'-KB'+(ti+1))}<div class="twin"><div class="card"><b>${t.a.t}</b><p class="muted" style="margin-top:4px">${t.a.d}</p></div><div class="card"><b>${t.b.t}</b><p class="muted" style="margin-top:4px">${t.b.d}</p></div></div>`).join('')}`;}
   if(tab==='kuis')body=quizHTML(n);
   if(tab==='ulang')body=flashHTML(n);
-  return head+body+`<div class="banner" style="margin-top:16px">Draf soal Sesi ${n}: ${(QUIZ[n]||[]).length} kuis, ${(FLASH[n]||[]).length} kartu. Belum direview ustadz.</div>`;
+  return head+body+``;
 }
 window.setTab=(n,k)=>{tab=k;render();};
 
