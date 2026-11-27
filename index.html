@@ -175,13 +175,11 @@ textarea{width:100%;font:inherit;font-size:13px;border:1px solid var(--line);bor
 #disc{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:20px}
 #disc .dbox{background:var(--card,#fff);color:var(--ink,#1F2A37);border-radius:16px;padding:20px;max-width:420px;width:100%;box-shadow:0 10px 40px rgba(0,0,0,.3);max-height:90vh;overflow:auto}
 .dbtn{background:#0F5C4A;color:#fff;border:0;border-radius:10px;padding:11px 18px;font:inherit;font-weight:600;cursor:pointer}
-.wb{box-sizing:border-box;display:flex;align-items:center;justify-content:center;min-height:46px;min-width:0;padding:0 6px;font-size:12.5px;font-weight:600;line-height:1.15;letter-spacing:0;white-space:nowrap;text-align:center;text-decoration:none}
-.fbb{box-sizing:border-box;display:flex;align-items:center;justify-content:center;min-height:38px;min-width:0;padding:0 6px;font-size:12.5px;font-weight:600;line-height:1.15;white-space:nowrap;text-decoration:none;border-radius:9px}
-.ntb{min-height:32px;padding:0 10px;font-size:12px;border-radius:8px}
-.ntc{min-height:38px;padding:0 4px;font-size:12px;border-radius:9px;line-height:1.15;white-space:nowrap;min-width:0}
-.ntc.on{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}
+.ntc.on{background:var(--wj-bg);color:var(--wj-ink);border-color:var(--wj-fg);box-shadow:inset 0 0 0 1px var(--wj-fg)}
 .ntta{width:100%;margin-top:8px;box-sizing:border-box;font:inherit;font-size:16px;line-height:1.5;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;resize:vertical}
 .dbtn2{background:transparent;color:inherit;border:1px solid var(--line,#ccc);border-radius:10px;padding:11px 16px;font:inherit;cursor:pointer}
+.dbtn.wb,.dbtn2.wb,.dbtn.fbb,.dbtn2.fbb,.ntb,.ntc{box-sizing:border-box;display:flex;align-items:center;justify-content:center;min-width:0;padding:0 8px;font:inherit;font-size:14px;font-weight:600;line-height:1.15;white-space:nowrap;text-align:center;text-decoration:none;border-radius:10px}
+.wb{min-height:44px}.fbb{min-height:40px}.ntc{min-height:40px}.ntb{min-height:36px;padding:0 12px}
 .warn{background:#FFF1CC;color:#4A3500;border:1px solid #E8C766;border-radius:14px;padding:14px;margin-top:14px}
 .warn .dbtn2{border-color:#C9A63F;color:#4A3500}
 @media (prefers-color-scheme:dark){.warn{background:#3A2E0B;color:#F6E3A6;border-color:#6B5513}.warn .dbtn2{border-color:#8A6F1B;color:#F6E3A6}}
@@ -563,7 +561,7 @@ kaidah:[
  {st:[2],warn:true,t:'Jima\' saat haidh termasuk dosa besar.',p:'159'},
  {st:[3],t:'Darah berhenti: puasa langsung halal walau belum mandi. Keharaman lainnya tetap berlaku sampai mandi.',p:'160'}]};
 let MX=0,MXG=false;
-const REVIEW=false, APPVER='v0.35';
+const REVIEW=false, APPVER='v0.36';
 function rk(c){return REVIEW?`<span class="rk">${c}</span>`:'';}
 const RVBAR=`<div class="rvbar">DRAF ${APPVER} · untuk review asatidzah, belum untuk peserta · <a href="#beranda" onclick="setTimeout(()=>{const g=document.getElementById('rvg');g&&g.scrollIntoView()},50)">cara memberi catatan</a></div>`;
 function reviewGuideHTML(){return `<div class="card rvguide" id="rvg" style="margin-top:14px;border:2px solid #B4232A"><b style="font-size:16px">Panduan review untuk asatidzah</b>
@@ -1553,7 +1551,7 @@ function usersHTML(sapa){const o=uStore(),ids=Object.keys(o).filter(k=>k!==S.uid
  if(sapa)return ids.length?`<div class="card" style="margin-top:14px"><b>Sudah pernah memakai di HP ini?</b><p class="muted" style="font-size:13px;margin-top:4px">Pilih namamu untuk melanjutkan progresmu.</p>${list}</div>`:'';
  return `<div class="card stack" style="margin-top:14px"><b>Pengguna</b><p class="muted" style="font-size:13px">Sedang masuk: <b>${esc(S.name||'-')}</b>. Satu HP bisa dipakai bergantian; progres tiap orang tersimpan terpisah.</p><button onclick="switchUser()">Ganti pengguna (keluar)</button>${ids.length?`<p class="muted" style="font-size:13px;margin-top:6px">Pengguna lain di HP ini:</p>${list}`:''}</div>`;}
 
-const NT_TAGS={tambahan:['Tambahan ustadz','cat-sunnah'],tanya:['Pertanyaan saya','cat-wajib'],ingat:['Pengingat','cat-syarat']};
+const NT_TAGS={tambahan:['Tambahan','cat-sunnah'],tanya:['Pertanyaan','cat-wajib'],ingat:['Pengingat','cat-syarat']};
 let NT={k:null,open:false,tag:'tambahan',id:null,draft:''};
 function ntKeyOk(v){return /^(fasal|sesi|bab)-/.test(v);}
 function ntLabel(k){if(k.startsWith('sesi-'))return 'Sesi '+k.slice(5);if(k.startsWith('fasal-')){const f=DETAIL[k.slice(6)];return f?f.judul:k;}if(k.startsWith('bab-')){const r=REGIONS.find(x=>x.id===k.slice(4));return r?'Bab '+r.name:k;}return k;}
@@ -1561,7 +1559,7 @@ function ntList(k){return (S.notes&&S.notes[k])||[];}
 function ntCount(){return Object.keys(S.notes||{}).reduce((a,k)=>a+(S.notes[k]||[]).length,0);}
 function ntItem(n){const t=NT_TAGS[n.tag]||NT_TAGS.ingat;return `<div style="border-top:1px solid var(--line);padding:10px 0 2px;margin-top:10px"><div class="row" style="justify-content:space-between;gap:6px"><span class="pill ${t[1]}">${t[0]}</span><span class="row" style="gap:4px"><button class="ntb" onclick="ntEdit('${n.id}')">Ubah</button><button class="ntb" onclick="ntDel('${n.id}')">Hapus</button></span></div><p style="white-space:pre-wrap;margin-top:6px;line-height:1.55">${esc(n.txt)}</p></div>`;}
 function ntInner(){const k=NT.k,L=ntList(k);
- let h=`<b>Catatanku</b><p class="muted" style="font-size:12px;margin-top:2px">Catatan pribadi Anda, bukan bagian isi aplikasi. Tersimpan di HP ini.</p>${L.map(ntItem).join('')}`;
+ let h=`<b>Catatanku</b><p class="muted" style="margin-top:2px">Catatan pribadi Anda, bukan bagian isi aplikasi. Tersimpan di HP ini.</p>${L.map(ntItem).join('')}`;
  if(NT.open){h+=`<div style="margin-top:12px"><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">${Object.keys(NT_TAGS).map(t=>`<button class="ntc ${NT.tag===t?'on':''}" onclick="ntTag('${t}')">${NT_TAGS[t][0]}</button>`).join('')}</div><textarea id="ntta" rows="4" maxlength="2000" class="ntta" placeholder="Apa yang ustadz sampaikan di sini yang belum tertulis?" oninput="NT.draft=this.value">${esc(NT.draft)}</textarea><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px"><button class="dbtn fbb" onclick="ntSave()">Simpan</button><button class="dbtn2 fbb" onclick="ntCancel()">Batal</button></div></div>`;}
  else h+=`<button class="dbtn2 fbb" style="width:100%;margin-top:12px" onclick="ntOpen()">＋ Catatanku</button>`;
  return h;}
@@ -1579,7 +1577,7 @@ window.ntCopyAll=function(b){try{navigator.clipboard.writeText(ntAllText()).then
 function viewCatatan(){const ks=Object.keys(S.notes||{}).filter(k=>(S.notes[k]||[]).length);
  const body=ks.length?ks.map(k=>`<div class="card" style="margin-top:12px"><div class="row" style="justify-content:space-between;gap:8px"><b>${esc(ntLabel(k))}</b><a href="#${k}" onclick="window.scrollTo(0,0)" style="font-size:13px">Buka halaman</a></div>${S.notes[k].map(n=>{const t=NT_TAGS[n.tag]||NT_TAGS.ingat;return `<div style="border-top:1px solid var(--line);margin-top:10px;padding-top:8px"><span class="pill ${t[1]}">${t[0]}</span><p style="white-space:pre-wrap;margin-top:6px;line-height:1.55">${esc(n.txt)}</p></div>`;}).join('')}</div>`).join(''):`<div class="card" style="margin-top:14px"><p>Belum ada catatan. Buka halaman sesi atau fasal mana pun, lalu ketuk <b>＋ Catatanku</b> di bagian bawahnya.</p></div>`;
  return `<h1>Catatanku</h1><p class="muted">${ntCount()} catatan pribadi, dikelompokkan per halaman. Ubah atau hapus dari halaman asalnya.</p>${ks.length?`<div style="display:grid;grid-template-columns:1fr;gap:6px;margin-top:10px"><button class="dbtn fbb" onclick="ntCopyAll(this)">Salin semua catatan</button></div>`:''}${body}`;}
-function ntHomeCard(){const n=ntCount();return `<div class="card" style="margin-top:12px;padding:10px 14px"><div class="row" style="justify-content:space-between;gap:8px"><span><b>Catatanku</b><span class="muted" style="font-size:12px"> · ${n?n+' catatan':'belum ada'}</span></span><button class="dbtn2 fbb" style="min-height:36px;padding:0 14px" onclick="go('catatan')">Buka</button></div></div>`;}
+function ntHomeCard(){const n=ntCount();return `<div class="card" style="margin-top:12px;padding:10px 14px"><div class="row" style="justify-content:space-between;gap:8px"><span><b>Catatanku</b><span class="muted"> · ${n?n+' catatan':'belum ada'}</span></span><button class="dbtn2 fbb" style="min-height:36px;padding:0 14px" onclick="go('catatan')">Buka</button></div></div>`;}
 function viewSapa(){return viewSapa0()+usersHTML(true);}
 function viewSapa0(){
   return `<div class="hero" style="padding-bottom:26px"><div style="position:relative"><p class="hk">Teman belajar fikih</p><h1 style="color:#fff;font-size:26px;margin:4px 0 0">Ahlan wa sahlan</h1><p class="ar" style="color:#FAC775;font-size:22px;direction:rtl;text-align:left">أَهْلًا وَسَهْلًا</p><p class="hk" style="margin-top:6px">Selamat datang di Bekal Fikih, teman belajar al-Mukhtashar al-Lathif.</p></div></div>
